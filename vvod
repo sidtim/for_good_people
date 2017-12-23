@@ -1,0 +1,148 @@
+#include <iostream>
+#include <conio.h>
+#include <cstring>
+#include <cstdlib>
+
+
+using namespace std;
+
+
+
+int main()                              
+{
+	char m = 'n'  ;               
+									
+	int numst = 0, numend = 0;
+	char s[512]; 
+	int i = 0, slovo = 0, i1=0;
+	int kol = 0;
+
+	do
+	{
+		
+	m = getch();
+		switch (m)
+		{ 
+		case 13:
+			
+			putch (10);
+			 putch (13);
+			 s[i]=' ';
+			 i++;
+			 
+			break;
+		case 8:
+
+			if (i!=0)
+			{
+			putch(8);
+			putch(32);
+			putch(8);
+			i-=1;
+			s[i] = 0;
+			}
+			 break;
+		case 32:
+			s[i]=m;
+		i += 1;
+			putch(32);
+		     break;
+		case 46:
+			s[i] = m;
+			i+=1;
+			break;
+		}
+
+		if (m >= 97 & m <= 122)
+		{
+		s[i]=m;
+		i += 1;
+		putch(m);
+		}
+	}
+	while(m != 46);
+	char* s1 = new char[i];
+	s1[i-1] = 0;
+
+			strncpy(s1,s,i-1);
+   putch (10);
+   putch (13);  // здесть заканчивается ввод, дальше пошла дичь
+	
+	for(int j = 1; j < i-1; j++)
+	{
+		if (s[j] != ' ' && slovo == 0)
+		{
+			kol+=1;
+			slovo = 1;
+		}
+		else if (s[j] == ' ' && slovo == 1) slovo = 0;
+
+	
+	}
+char** masword = new char* [kol];
+int* mastime = new int [kol];
+for (int j = 0; j < kol; j++)
+{
+	mastime[j] = 0;
+}
+
+	char * pch = strtok (s1," ,.-"); 
+ 
+  while (pch != NULL)                 
+
+  {
+	  masword[i1] = pch;
+      pch = strtok (NULL, " ,.-");
+	  i1 += 1;
+  }
+  char* multy_word;
+  for (int j = 0; j < kol; j++)
+  {
+	  multy_word = masword[j];
+	 for (int j1 = 0; j1 < strlen(masword[j]); j1++)
+	   {
+		   putch(multy_word[j1]);
+		   
+	   }
+	   putch(32);
+  }
+  putch (10);
+  putch (13); 
+
+   for (int j = 0; j < kol; j++)
+   {
+	   for (int j1 = j; j1 < kol; j1++)
+	   {
+		   if (strcmp(masword[j], masword[j1]) == 0)
+		   {
+			   mastime[j] += 1;
+			   if (j!=j1) masword[j1] = "noman"; 
+		   }
+	   }
+   }
+   char* single_word ;
+   char single_time[6] = "n";
+  
+    for (int j = 0; j < kol; j++)
+	{
+   if (masword[j] != "noman")
+   {
+	   itoa(mastime[j],single_time, 10);
+	   single_word = masword[j];
+	   for (int j1 = 0; j1 < strlen(masword[j]); j1++)
+	   {
+		   putch(single_word[j1]);
+		   
+	   }
+	   putch(32);
+	   for(int j1 = 0; j1 < strlen(single_time); j1++)
+	   {
+	   putch(single_time[j1]);
+	   }
+   putch (10);
+   putch (13);
+   }
+	}
+	system("pause");
+	return 0;
+}
